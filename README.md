@@ -3,6 +3,9 @@
 > A full-stack College Library Management System built with **Spring Boot 4 + Java 25 + MySQL 8**
 > and a clean vanilla-JS frontend (no framework, no build step).
 
+**New to this codebase?** Read **[ARCHITECTURE.md](ARCHITECTURE.md)** first — it explains
+every layer, the reason behind each decision, and how to add new features.
+
 **What it does**
 
 - Session-based login with roles (Admin / Librarian / Student), CSRF protection and password hashing
@@ -1372,6 +1375,7 @@ college-library/
 │   ├── application.properties
 │   └── static/        # HTML + CSS + JS (no framework)
 ├── application-local.properties.example
+├── ARCHITECTURE.md          # how the whole system works, and why
 ├── pom.xml
 └── LICENSE
 ```
