@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Library | Dashboard</title>
+    <link rel="icon" href="/assets/images/library-illustration.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body data-page="dashboard" data-roles="ADMIN,LIBRARIAN" data-subtitle="Overview of the college library">
+
+    <main class="content" id="pageContent">
+
+        <div class="page-head">
+            <div>
+                <h2>Dashboard</h2>
+                <p>Live numbers from your library — updated on every refresh.</p>
+            </div>
+            <a class="btn btn--primary" href="/admin/issues.html">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                Issue a book
+            </a>
+        </div>
+
+        <div class="stats" id="stats">
+            <div class="stat"><div class="stat__label">Loading…</div></div>
+        </div>
+
+        <div class="grid-2">
+            <section class="card">
+                <div class="card__head">
+                    <h3>Recent activity</h3>
+                    <a class="btn btn--ghost btn--sm" href="/admin/issues.html">View all</a>
+                </div>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Member</th>
+                                <th>Issued</th>
+                                <th>Due</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBody">
+                            <tr class="loading-row"><td colspan="5">Loading activity…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card__head"><h3>Quick actions</h3></div>
+                <div class="card__body" id="quickActions">
+                    <p class="hint">Loading…</p>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

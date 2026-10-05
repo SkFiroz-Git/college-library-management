@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Library | Issue &amp; Return</title>
+    <link rel="icon" href="/assets/images/library-illustration.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body data-page="issues" data-roles="ADMIN,LIBRARIAN" data-subtitle="Lend and collect books">
+
+    <main class="content" id="pageContent">
+
+        <div class="page-head">
+            <div>
+                <h2>Issue &amp; Return</h2>
+                <p>Loan period is configured on the server (default 14 days).</p>
+            </div>
+            <button class="btn btn--primary" id="issueBtn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                Issue book
+            </button>
+        </div>
+
+        <div class="stats" id="issueStats">
+            <div class="stat"><div class="stat__label">Loading…</div></div>
+        </div>
+
+        <section class="card">
+            <div class="toolbar">
+                <div class="search">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                    <input type="search" id="searchInput" placeholder="Search book title or member…">
+                </div>
+
+                <select class="select" id="statusFilter" aria-label="Filter by status">
+                    <option value="">All records</option>
+                    <option value="ISSUED">Currently issued</option>
+                    <option value="RETURNED">Returned</option>
+                    <option value="OVERDUE">Overdue only</option>
+                </select>
+
+                <div class="toolbar__spacer"></div>
+                <span class="hint" id="resultCount"></span>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>Member</th>
+                            <th>Issued</th>
+                            <th>Due</th>
+                            <th>Status</th>
+                            <th style="text-align:right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="issueRows">
+                        <tr class="loading-row"><td colspan="6">Loading records…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <span id="pageInfo">—</span>
+                <div class="pagination__pages">
+                    <button class="btn btn--ghost btn--sm" id="prevPage">Previous</button>
+                    <button class="btn btn--ghost btn--sm" id="nextPage">Next</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <dialog class="modal" id="issueDialog">
+        <form id="issueForm" novalidate>
+            <div class="modal__head">
+                <h3>Issue a book</h3>
+                <button type="button" class="icon-btn" id="closeDialog" aria-label="Close">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <div class="modal__body">
+                <div class="form-grid">
+                    <div class="field field--full">
+                        <label for="bookSelect">Book <span class="req">*</span></label>
+                        <select id="bookSelect" name="bookId" required>
+                            <option value="">Loading books…</option>
+                        </select>
+                        <p class="field__error" hidden></p>
+                        <p class="hint">Only books in the catalogue are listed.</p>
+                    </div>
+
+                    <div class="field field--full">
+                        <label for="userSelect">Member <span class="req">*</span></label>
+                        <select id="userSelect" name="userId" required>
+                            <option value="">Loading members…</option>
+                        </select>
+                        <p class="field__error" hidden></p>
+                        <p class="hint">Deactivated accounts cannot borrow books.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal__foot">
+                <button type="button" class="btn btn--ghost" id="cancelDialog">Cancel</button>
+                <button type="submit" class="btn btn--primary" id="confirmIssueBtn">
+                    <span>Issue book</span>
+                    <span class="btn__spinner" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/issues.js"></script>
+</body>
+</html>

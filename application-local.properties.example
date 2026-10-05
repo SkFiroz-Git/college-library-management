@@ -1,0 +1,13 @@
+# Copy this file to application-local.properties and fill in your values.
+#   copy application-local.properties.example application-local.properties
+# application-local.properties is listed in .gitignore, so your passwords
+# are never pushed to GitHub.
+#
+# Create the database and this user once (as MySQL root):
+#   CREATE DATABASE college_library CHARACTER SET utf8mb4;
+#   CREATE USER 'college_library_app'@'localhost' IDENTIFIED BY 'your_password';
+#   GRANT ALL PRIVILEGES ON college_library.* TO 'college_library_app'@'localhost';
+#   FLUSH PRIVILEGES;
+
+DB_USERNAME=college_library_app
+DB_PASSWORD=your_password_here

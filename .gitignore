@@ -1,0 +1,50 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Local secrets — never commit ###
+application-local.properties
+**/application-local.properties
+!.application-local.properties.example
+.env
+.env.*
+
+### Logs and OS junk ###
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Backups ###
+*.bak
+*.sql.gz

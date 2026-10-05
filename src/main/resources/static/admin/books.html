@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Library | Books</title>
+    <link rel="icon" href="/assets/images/library-illustration.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body data-page="books" data-roles="ADMIN,LIBRARIAN" data-subtitle="Manage the book catalogue">
+
+    <main class="content" id="pageContent">
+
+        <div class="page-head">
+            <div>
+                <h2>Books</h2>
+                <p>Add titles, update copy counts and archive books that leave the library.</p>
+            </div>
+            <button class="btn btn--primary" id="addBookBtn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                Add book
+            </button>
+        </div>
+
+        <section class="card">
+            <div class="toolbar">
+                <div class="search">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                    <input type="search" id="searchInput" placeholder="Search title, author or ISBN…">
+                </div>
+
+                <select class="select" id="statusFilter" aria-label="Filter by status">
+                    <option value="true" selected>In catalogue</option>
+                    <option value="">Any status</option>
+                    <option value="false">Archived</option>
+                </select>
+
+                <div class="toolbar__spacer"></div>
+                <span class="hint" id="resultCount"></span>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>ISBN</th>
+                            <th>Genre</th>
+                            <th>Year</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Copies</th>
+                            <th>Status</th>
+                            <th style="text-align:right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookRows">
+                        <tr class="loading-row"><td colspan="9">Loading books…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <span id="pageInfo">—</span>
+                <div class="pagination__pages">
+                    <button class="btn btn--ghost btn--sm" id="prevPage">Previous</button>
+                    <button class="btn btn--ghost btn--sm" id="nextPage">Next</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <dialog class="modal" id="bookDialog">
+        <form id="bookForm" novalidate>
+            <div class="modal__head">
+                <h3 id="dialogTitle">Add book</h3>
+                <button type="button" class="icon-btn" id="closeDialog" aria-label="Close">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <div class="modal__body">
+                <div class="form-grid">
+                    <div class="field field--full">
+                        <label for="title">Title <span class="req">*</span></label>
+                        <input type="text" id="title" name="title" placeholder="e.g. Data Structures and Algorithms">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="isbn">ISBN <span class="req">*</span></label>
+                        <input type="text" id="isbn" name="isbn" placeholder="e.g. 978-81-7596-000-1">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="author">Author <span class="req">*</span></label>
+                        <input type="text" id="author" name="author" placeholder="e.g. Thomas H. Cormen">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="publisher">Publisher</label>
+                        <input type="text" id="publisher" name="publisher" placeholder="e.g. Cambridge Press">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="category">Genre / category</label>
+                        <input type="text" id="category" name="category" placeholder="e.g. Technology">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="publicationYear">Publication year</label>
+                        <input type="number" id="publicationYear" name="publicationYear" min="1000" max="2100" placeholder="e.g. 2008">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" placeholder="e.g. 29.99">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="rating">Rating (0–5)</label>
+                        <input type="number" id="rating" name="rating" min="0" max="5" step="0.1" placeholder="e.g. 4.4">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="totalCopies">Total copies <span class="req">*</span></label>
+                        <input type="number" id="totalCopies" name="totalCopies" min="1" value="1">
+                        <p class="field__error" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="active">Catalogue status</label>
+                        <select id="active" name="active">
+                            <option value="true">In catalogue</option>
+                            <option value="false">Archived</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal__foot">
+                <button type="button" class="btn btn--ghost" id="cancelDialog">Cancel</button>
+                <button type="submit" class="btn btn--primary" id="saveBookBtn">
+                    <span>Save book</span>
+                    <span class="btn__spinner" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/books.js"></script>
+</body>
+</html>
